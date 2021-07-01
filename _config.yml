@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: 胆小鬼会梦见闪光吗
 subtitle: ""
-description: ""
+description: "我!再生产"
 keywords:
-author: John Doe
-language: en
-timezone: ""
+author: 覆影
+language: zh
+timezone: "UTC"
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://github.com/shadowsouls/shadowsouls.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
