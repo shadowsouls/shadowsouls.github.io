@@ -2,3 +2,5 @@ avatar:
   url: /images/avatar.png # 你的头像图片地址
   rounded: true
   opacity: 1
+wordcloud:
+  enable: true
