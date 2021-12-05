@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="覆影"><meta name="copyright" content="覆影"><meta name="generator" content="Hexo 5.4.0"><meta name="theme" content="hexo-theme-yun"><title>node的学习记录 | 胆小鬼会梦见闪光吗</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"shadowsouls.github.io","root":"/","title":"多么强大,路在脚下","version":"1.6.1","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="闭包的定义 自我理解  闭包就是在一个函数A内部存在变量与一个函数B,当函数A对外返回函数B时，函数B总是可以访问到变量   官方解释  闭包:是指内部函数总是可以访问其所在的外部函数中声明的变量和参数，即使在其外部函数被返回（寿命终结）了之后。     function A()&amp;#123;     const x&#x3D;1     return function B()&amp;#123;         c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node的学习记录">
+<meta property="og:url" content="https://shadowsouls.github.io/2021/08/03/node%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="胆小鬼会梦见闪光吗">
+<meta property="og:description" content="闭包的定义 自我理解  闭包就是在一个函数A内部存在变量与一个函数B,当函数A对外返回函数B时，函数B总是可以访问到变量   官方解释  闭包:是指内部函数总是可以访问其所在的外部函数中声明的变量和参数，即使在其外部函数被返回（寿命终结）了之后。     function A()&amp;#123;     const x&#x3D;1     return function B()&amp;#123;         c">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/10/30/gbpjyFWDn5zoKkC.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/30/z4UO29TydZqxvnu.png">
+<meta property="article:published_time" content="2021-08-03T02:22:34.000Z">
+<meta property="article:modified_time" content="2021-08-03T02:22:34.000Z">
+<meta property="article:author" content="覆影">
+<meta property="article:tag" content="记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/30/gbpjyFWDn5zoKkC.png"><script src="/js/ui/mode.js"></script></head><body><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="覆影"><img width="96" loading="lazy" src="/images/avatar.png" alt="覆影"></a><div class="site-author-name"><a href="/about/">覆影</a></div><a class="site-name" href="/about/site.html">胆小鬼会梦见闪光吗</a><sub class="site-subtitle">我就是二刺螈</sub><div class="site-desciption">看什么看,你也是二刺螈</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">11</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">4</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">闭包的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#node%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%BC%B9%E5%B0%84%E5%99%A8%E6%9C%BA%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">node的事件弹射器机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">3.</span> <span class="toc-text">中间件是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E5%8F%AB%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">4.</span> <span class="toc-text">什么叫文件描述符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">5.</span> <span class="toc-text">流模型的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pipe"><span class="toc-number">5.1.</span> <span class="toc-text">pipe()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E4%BD%A0%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E4%B8%BB%E6%9C%BA%E4%B8%8A%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">如何让你的代码执行主机上的命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%96%91%E9%97%AE"><span class="toc-number">7.</span> <span class="toc-text">疑问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3buffer"><span class="toc-number">8.</span> <span class="toc-text">深入理解buffer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E6%B2%A1%E6%9C%89%E8%80%83%E8%99%91%E8%BF%87%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%A0%E8%BE%93%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E7%9A%84%E6%97%B6%E5%80%99%E4%BC%9A%E5%87%BA%E7%8E%B0%E4%B9%B1%E7%A0%81"><span class="toc-number">8.1.</span> <span class="toc-text">有没有考虑过为什么传输中文字符的时候会出现乱码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8setencoding-%E5%8F%AF%E4%BB%A5%E6%AD%A3%E7%A1%AE%E8%A7%A3%E6%9E%90%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6"><span class="toc-number">8.1.1.</span> <span class="toc-text">为什么使用setencoding()可以正确解析中文字符</span></a></li></ol></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://shadowsouls.github.io/2021/08/03/node%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="覆影"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="胆小鬼会梦见闪光吗"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">node的学习记录</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2021-08-03 02:22:34" itemprop="dateCreated datePublished" datetime="2021-08-03T02:22:34Z">2021-08-03</time></div><div class="post-classify"><span class="post-tag"><a class="tag-item" href="/tags/%E8%AE%B0%E5%BD%95/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">记录</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><h2 id="闭包的定义"><a href="#闭包的定义" class="headerlink" title="闭包的定义"></a>闭包的定义</h2><ul>
+<li><p>自我理解</p>
+<ul>
+<li>闭包就是在一个函数A内部存在变量与一个函数B,当函数A对外返回函数B时，函数B总是可以访问到变量</li>
+</ul>
+</li>
+<li><p>官方解释</p>
+<ul>
+<li>闭包:是指内部函数总是可以访问其所在的外部函数中声明的变量和参数，即使在其外部函数被返回（寿命终结）了之后。</li>
+</ul>
+</li>
+</ul>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript">
+<span class="token keyword">function</span> <span class="token constant">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> x<span class="token operator">=</span><span class="token number">1</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token constant">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">x=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>x<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>    
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">const</span> a<span class="token operator">=</span><span class="token constant">A</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">// x=1</span>
+</code></pre>
+
+<h2 id="node的事件弹射器机制"><a href="#node的事件弹射器机制" class="headerlink" title="node的事件弹射器机制"></a>node的事件弹射器机制</h2><p>事件弹射器，即程序可以通过弹射特定事件名使得特定监听器执行相关操作</p>
+<p>通常继承events.EventEmitter即可自定义一个监听类、</p>
+<p>通过.on(‘事件名’,…p)来开启相关事件的监听</p>
+<p>通过.emit(‘事件名’,…p)来启动相关事件的操作</p>
+<p>特别强调的是<strong>事件名</strong>是可以自定义的无论他是叫process还是data, <strong>在没有使用.on来装载监听器之前</strong> 都不会有名称上的冲突</p>
+<p>示例代码</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> events <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'events'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Watcher</span> <span class="token keyword">extends</span> <span class="token class-name">events<span class="token punctuation">.</span>EventEmitter</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">watchdir<span class="token punctuation">,</span> processedDir</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>watchdir <span class="token operator">=</span> watchdir
+        <span class="token keyword">this</span><span class="token punctuation">.</span>processedDir <span class="token operator">=</span> processedDir
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token function">watch</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        fs<span class="token punctuation">.</span><span class="token function">readdir</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>watchdir<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> files</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">throw</span> err
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> index <span class="token keyword">in</span> files<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>files<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'process'</span><span class="token punctuation">,</span> files<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        fs<span class="token punctuation">.</span><span class="token function">watchFile</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>watchdir<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">watch</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> Watcher
+
+<span class="token keyword">const</span> watcher <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Watcher</span><span class="token punctuation">(</span><span class="token string">'./watch'</span><span class="token punctuation">,</span> <span class="token string">'./done'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+watcher<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'process'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">file</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> watchFile <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>watcher<span class="token punctuation">.</span>watchdir<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>file<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span>
+    <span class="token keyword">const</span> processedFile <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>watcher<span class="token punctuation">.</span>processedDir<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>file<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span>
+    fs<span class="token punctuation">.</span><span class="token function">rename</span><span class="token punctuation">(</span>watchFile<span class="token punctuation">,</span> processedFile<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">throw</span> err
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+watcher<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="中间件是什么"><a href="#中间件是什么" class="headerlink" title="中间件是什么"></a>中间件是什么</h2><p>中间件即挂在管道上的水表,对流过的数据流进行加工处理</p>
+<p>如,需要统计接受数据大小就可以使用一个中间件在不影响传输数据的情况下对数据进行处理</p>
+<p>用在服务器上就是,对传入数据进行预处理,将该数据加工处理成业务需要的模样.</p>
+<h2 id="什么叫文件描述符"><a href="#什么叫文件描述符" class="headerlink" title="什么叫文件描述符"></a>什么叫文件描述符</h2><p>相当于一个文件的特殊标识,或者说是id号之类的</p>
+<p>可以通过<code>fs.open()</code>将某个文件加载到内存中 ,该方法将返回一个类型为<code>number</code>的文件描述符</p>
+<p>然后就可以通过该值来操作该文件,而不是用路径来操作文件</p>
+<h2 id="流模型的概念"><a href="#流模型的概念" class="headerlink" title="流模型的概念"></a>流模型的概念</h2><p>流模型其实应该长这样</p>
+<p><img src="https://i.loli.net/2021/10/30/gbpjyFWDn5zoKkC.png" alt="image-20211030221228781" loading="lazy"></p>
+<h3 id="pipe"><a href="#pipe" class="headerlink" title="pipe()"></a>pipe()</h3><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> readStream <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+readStream<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span></code></pre>
+
+<p>在这里<code>readStream</code>就是输入,使用pipe将readSteam连接到res</p>
+<p>即</p>
+<p><img src="https://i.loli.net/2021/10/30/z4UO29TydZqxvnu.png" alt="image-20211030221732895" loading="lazy"></p>
+<h2 id="如何让你的代码执行主机上的命令"><a href="#如何让你的代码执行主机上的命令" class="headerlink" title="如何让你的代码执行主机上的命令"></a>如何让你的代码执行主机上的命令</h2><p>可以尝试node.js中的子进程模块的execFile函数</p>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>问:假设我有一个函数,如果我要增强它,比如要加个缓存功能,那是要直接修改源码呢还是用一个装饰器呢</p>
+<p>答:根据开放封闭原则,那肯定是用装饰器</p>
+<p>问:那我要对装饰器进行测试那该怎么测试呢?</p>
+<p>答:maybe,装饰器需要一个方法可以让外部检测到缓存内容,进而通过这些缓存内容来进行测试</p>
+<h2 id="深入理解buffer"><a href="#深入理解buffer" class="headerlink" title="深入理解buffer"></a>深入理解buffer</h2><p>使用Buffer来创建一个可以控制字节的对象吧</p>
+<p>如果有大量的分段的buffer对象传入可以考虑使用以下代码进行拼接</p>
+<pre class="language-ts" data-language="ts"><code class="language-ts">import fs from &#39;fs&#39;;
+import iconv from &#39;iconv-lite&#39;;
+let chunks:Buffer[] &#x3D; []
+let size &#x3D; 0;
+
+
+let rs &#x3D; fs.createReadStream(&#39;test.md&#39;, &#123; highWaterMark: 11 &#125;)
+
+rs.on(&#39;data&#39;, (chunk: Buffer) &#x3D;&gt; &#123;
+    chunks.push(chunk)
+    size +&#x3D; chunk.length
+&#125;)
+
+rs.on(&#39;end&#39;, () &#x3D;&gt; &#123;
+    let buf &#x3D; Buffer.concat(chunks, size)
+    let str &#x3D; iconv.decode(buf, &#39;utf-8&#39;)
+    console.log(str);
+
+&#125;)</code></pre>
+
+<h3 id="有没有考虑过为什么传输中文字符的时候会出现乱码"><a href="#有没有考虑过为什么传输中文字符的时候会出现乱码" class="headerlink" title="有没有考虑过为什么传输中文字符的时候会出现乱码"></a>有没有考虑过为什么传输中文字符的时候会出现乱码</h3><p>原因1: 未设置解码形式,或者设置了错误的解码形式</p>
+<p>原因2: 中文字符占3个字节,传输的时候将这三个字符拆分了,导致buffer1中包含部分字节,buffer2中也包含部分字节. 在输出的时候没有进行拼接的化就会导致只解码部分字节,而没有解码全部导致出现乱码</p>
+<h4 id="为什么使用setencoding-可以正确解析中文字符"><a href="#为什么使用setencoding-可以正确解析中文字符" class="headerlink" title="为什么使用setencoding()可以正确解析中文字符"></a>为什么使用setencoding()可以正确解析中文字符</h4><p>其实也不是正确解析的,如果输入的是一些偏门的字符集,解析的时候也会出现乱码</p>
+<span id="more"></span>
+
+<hr>
+<p>To Be Continued.</p>
+<!-- Q.E.D. -->
+
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>覆影</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://shadowsouls.github.io/2021/08/03/node%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="node的学习记录">https://shadowsouls.github.io/2021/08/03/node%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2021/08/03/%E3%80%8A%E5%B0%8F%E8%AF%B4%E3%80%8B/" rel="prev" title="《小说》"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">《小说》</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/07/03/%E6%B5%8B%E8%AF%95%E6%96%87%E4%BB%B6/" rel="next" title="测试文件"><span class="post-nav-text">测试文件</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2021 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 覆影</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v5.4.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.6.1</span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>

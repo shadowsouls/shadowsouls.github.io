@@ -1,0 +1,332 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="覆影"><meta name="copyright" content="覆影"><meta name="generator" content="Hexo 5.4.0"><meta name="theme" content="hexo-theme-yun"><title>Nuxt使用说明 | 胆小鬼会梦见闪光吗</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.25/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_dxory92pb0h.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@latest/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"><link rel="icon" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"hostname":"shadowsouls.github.io","root":"/","title":"多么强大,路在脚下","version":"1.6.1","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/utils.js"></script><script src="/js/hexo-theme-yun.js"></script><meta name="description" content="要我说这nuxt就是个坑，这句话果然没错以下皆为我在学习使用nuxt时遇到的各种问题,此文章用于记录我的问题及解决方案,详细程度皆由当时的代码水平左右 1. 引入第三方库以Monaco-Editor举例项目使用yarn create nuxt-app &lt;pn&gt;来进行初始化,以下为初始化配置  然后呢,然后就得开始引入Monaco-editor 依照Monaco的官方说明行事可行?依">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nuxt使用说明">
+<meta property="og:url" content="https://shadowsouls.github.io/2021/10/24/Nuxt%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/index.html">
+<meta property="og:site_name" content="胆小鬼会梦见闪光吗">
+<meta property="og:description" content="要我说这nuxt就是个坑，这句话果然没错以下皆为我在学习使用nuxt时遇到的各种问题,此文章用于记录我的问题及解决方案,详细程度皆由当时的代码水平左右 1. 引入第三方库以Monaco-Editor举例项目使用yarn create nuxt-app &lt;pn&gt;来进行初始化,以下为初始化配置  然后呢,然后就得开始引入Monaco-editor 依照Monaco的官方说明行事可行?依">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/10/24/VYnhRNmMz2qiHjw.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/24/4uf57GqWsF1bkde.png">
+<meta property="og:image" content="https://i.loli.net/2021/10/25/rWq8haHuCOLNUPy.png">
+<meta property="article:published_time" content="2021-10-24T17:52:13.000Z">
+<meta property="article:modified_time" content="2021-10-24T17:52:13.000Z">
+<meta property="article:author" content="覆影">
+<meta property="article:tag" content="解决方案">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/24/VYnhRNmMz2qiHjw.png"><script src="/js/ui/mode.js"></script></head><body><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="覆影"><img width="96" loading="lazy" src="/images/avatar.png" alt="覆影"></a><div class="site-author-name"><a href="/about/">覆影</a></div><a class="site-name" href="/about/site.html">胆小鬼会梦见闪光吗</a><sub class="site-subtitle">我就是二刺螈</sub><div class="site-desciption">看什么看,你也是二刺螈</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">11</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">3</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">4</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://yun.yunyoujun.cn" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E6%88%91%E8%AF%B4%E8%BF%99nuxt%E5%B0%B1%E6%98%AF%E4%B8%AA%E5%9D%91%EF%BC%8C%E8%BF%99%E5%8F%A5%E8%AF%9D%E6%9E%9C%E7%84%B6%E6%B2%A1%E9%94%99"><span class="toc-number">1.</span> <span class="toc-text">要我说这nuxt就是个坑，这句话果然没错</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%BC%95%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93"><span class="toc-number">1.1.</span> <span class="toc-text">1. 引入第三方库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5Monaco-Editor%E4%B8%BE%E4%BE%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">以Monaco-Editor举例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%9D%E7%85%A7Monaco%E7%9A%84%E5%AE%98%E6%96%B9%E8%AF%B4%E6%98%8E%E8%A1%8C%E4%BA%8B%E5%8F%AF%E8%A1%8C"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">依照Monaco的官方说明行事可行?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8vue%E7%9A%84%E6%8F%92%E4%BB%B6%E5%8F%AF%E8%A1%8C"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">使用vue的插件可行?</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%82%A3%E4%B9%88%E5%85%B6%E4%BB%96%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E5%91%A2"><span class="toc-number">1.1.2.</span> <span class="toc-text">那么其他第三方库呢?</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8nuxt%E4%B8%AD%E4%BD%BF%E7%94%A8vuex-ts"><span class="toc-number">2.</span> <span class="toc-text">在nuxt中使用vuex-ts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Layouts%E7%9B%AE%E5%BD%95%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">Layouts目录的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8Evue-property-decorator"><span class="toc-number">3.1.</span> <span class="toc-text">基于vue-property-decorator</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Evue-test-utils%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">关于vue-test-utils的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#wrapper"><span class="toc-number">4.1.</span> <span class="toc-text">wrapper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mount"><span class="toc-number">4.2.</span> <span class="toc-text">mount()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8Nuxt%E4%B8%AD%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-number">5.</span> <span class="toc-text">在Nuxt中获取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fetch"><span class="toc-number">5.1.</span> <span class="toc-text">fetch()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#asyncData"><span class="toc-number">5.2.</span> <span class="toc-text">asyncData()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8nuxt%E4%B8%AD%E4%BD%BF%E7%94%A8nuxt-property-decorator%E6%9D%A5%E4%BC%98%E5%8C%96%E5%86%99%E4%BD%9C"><span class="toc-number">6.</span> <span class="toc-text">在nuxt中使用nuxt-property-decorator来优化写作</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="https://shadowsouls.github.io/2021/10/24/Nuxt%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="覆影"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="胆小鬼会梦见闪光吗"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Nuxt使用说明</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="创建时间：2021-10-24 17:52:13" itemprop="dateCreated datePublished" datetime="2021-10-24T17:52:13Z">2021-10-24</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/%E9%97%AE%E9%A2%98/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">问题</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">解决方案</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><span id="more"></span>
+
+<h2 id="要我说这nuxt就是个坑，这句话果然没错"><a href="#要我说这nuxt就是个坑，这句话果然没错" class="headerlink" title="要我说这nuxt就是个坑，这句话果然没错"></a>要我说这nuxt就是个坑，这句话果然没错</h2><p>以下皆为我在学习使用nuxt时遇到的各种问题,此文章用于记录我的问题及解决方案,详细程度皆由当时的代码水平左右</p>
+<h3 id="1-引入第三方库"><a href="#1-引入第三方库" class="headerlink" title="1. 引入第三方库"></a>1. 引入第三方库</h3><h4 id="以Monaco-Editor举例"><a href="#以Monaco-Editor举例" class="headerlink" title="以Monaco-Editor举例"></a>以Monaco-Editor举例</h4><p>项目使用<code>yarn create nuxt-app &lt;pn&gt;</code>来进行初始化,以下为初始化配置</p>
+<p><img src="https://i.loli.net/2021/10/24/VYnhRNmMz2qiHjw.png" loading="lazy"></p>
+<p>然后呢,然后就得开始引入Monaco-editor</p>
+<h5 id="依照Monaco的官方说明行事可行"><a href="#依照Monaco的官方说明行事可行" class="headerlink" title="依照Monaco的官方说明行事可行?"></a>依照Monaco的官方说明行事可行?</h5><p>依据文档,引入以下依赖</p>
+<pre class="language-none"><code class="language-none">npm install monaco-editor-webpack-plugin
+npm install monaco-editor</code></pre>
+
+<p>在<code>nuxt.config.js</code>中</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> MonacoWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'monaco-editor-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span><span class="token punctuation">&#123;</span>
+<span class="token operator">...</span>
+	plugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+    	<span class="token keyword">new</span> <span class="token class-name">MonacoWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  	<span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token operator">...</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>在<code>components</code>中新建一个<code>Editor.vue</code></p>
+<pre class="language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+  &lt;div id&#x3D;&quot;container&quot; style&#x3D;&quot;height:100%;&quot;&gt;&lt;&#x2F;div&gt;
+
+&lt;&#x2F;template&gt;
+
+&lt;script&gt;
+import * as monaco from &quot;monaco-editor&quot;;
+
+export default &#123;
+  methods: &#123;
+    createEditor() &#123;
+      monaco.editor.create(document.getElementById(&quot;container&quot;), &#123;
+        value: [&quot;function x() &#123;&quot;, &#39;\tconsole.log(&quot;Hello world!&quot;);&#39;, &quot;&#125;&quot;].join(
+          &quot;\n&quot;
+        ),
+        language: &quot;javascript&quot;,
+      &#125;);
+    &#125;,
+    mounted () &#123;
+        this.createEditor();
+    &#125;,
+  &#125;,
+&#125;;
+&lt;&#x2F;script&gt;
+
+&lt;style lang&#x3D;&quot;scss&quot; scoped&gt;
+&lt;&#x2F;style&gt;	</code></pre>
+
+<p>然后?</p>
+<p>运行<code>yarn dev</code>,接着直接报错</p>
+<p><img src="https://i.loli.net/2021/10/24/4uf57GqWsF1bkde.png" alt="image-20211024223935734" loading="lazy"></p>
+<p>初步猜测,可能时<code>nuxt.config.js</code>的<code>plugins</code>中不能使用<code>new ...</code></p>
+<p>根据网上的方法,修改<code>nuxt.config.js</code></p>
+<pre class="language-js" data-language="js"><code class="language-js">
+<span class="token keyword">const</span> MonacoWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'monaco-editor-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span><span class="token punctuation">&#123;</span>
+<span class="token operator">...</span>
+	build<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    	plugins<span class="token operator">:</span><span class="token punctuation">[</span>
+     		<span class="token keyword">new</span> <span class="token class-name">MonacoWebpackPlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+   		<span class="token punctuation">]</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token operator">...</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>结果是</p>
+<p><img src="https://i.loli.net/2021/10/25/rWq8haHuCOLNUPy.png" alt="image-20211024225058438" loading="lazy"></p>
+<p>看来是不行的</p>
+<h5 id="使用vue的插件可行"><a href="#使用vue的插件可行" class="headerlink" title="使用vue的插件可行?"></a>使用vue的插件可行?</h5><p>使用vue-monaco来作为插件</p>
+<h4 id="那么其他第三方库呢"><a href="#那么其他第三方库呢" class="headerlink" title="那么其他第三方库呢?"></a>那么其他第三方库呢?</h4><h2 id="在nuxt中使用vuex-ts"><a href="#在nuxt中使用vuex-ts" class="headerlink" title="在nuxt中使用vuex-ts"></a>在nuxt中使用vuex-ts</h2><p>要在nuxt中使用vuex-ts很简单,不需要对nuxt.config.js进行配置</p>
+<p>只需要</p>
+<p>安装<code>vuex-module-decorators</code></p>
+<pre class="language-sh" data-language="sh"><code class="language-sh">npm i vuex-module-decorators</code></pre>
+
+<p>在<code>~/store/index.ts</code>添加以下代码</p>
+<pre class="language-ts" data-language="ts"><code class="language-ts">import &#123; Store &#125; from &quot;vuex&quot;;
+import &#123; getModule &#125; from &quot;vuex-module-decorators&quot;;
+
+function initialiseStore(store: Store&lt;any&gt;): void &#123;
+ 
+&#125;
+
+export &#123; initialiseStore &#125;</code></pre>
+
+<p>在<code>~/utils/store-accessor.ts</code>中添加以下代码</p>
+<pre class="language-ts" data-language="ts"><code class="language-ts">import &#123;Store&#125; from &quot;vuex&quot;;
+import &#123;initialiseStore&#125; from &quot;~&#x2F;utils&#x2F;store-accessor&quot;;
+
+const initialize &#x3D; (store: Store&lt;any&gt;) &#x3D;&gt; initialiseStore(store)
+
+export const plugins&#x3D;[initialize]
+export * from &#39;~&#x2F;utils&#x2F;store-accessor&#39;</code></pre>
+
+<p>==接下来构建vuex-module模块==</p>
+<p><code>~/store/myModule.ts</code></p>
+<pre class="language-ts" data-language="ts"><code class="language-ts">import &#123; Module, VuexModule, Mutation &#125; from &#39;vuex-module-decorators&#39;
+
+@Module(&#123;
+    name: &#39;myModule&#39;,&#x2F;&#x2F;name需要跟文件名相同,此处为严格大小写
+    stateFactory: true,
+    namespaced: true,
+&#125;)
+export default class MyModule extends VuexModule &#123;
+    wheels &#x3D; 2
+
+    @Mutation
+    incrWheels(extra: number) &#123;
+        this.wheels +&#x3D; extra
+    &#125;
+
+    get axles() &#123;
+        return this.wheels &#x2F; 2
+    &#125;
+
+&#125;</code></pre>
+
+<p>然后在<code>~/utils/stroe-accessor.ts</code>中使用</p>
+<pre class="language-ts" data-language="ts"><code class="language-ts">import &#123; Store &#125; from &#39;vuex&#39;
+import &#123; getModule &#125; from &#39;vuex-module-decorators&#39;
+import MyModule from &#39;~&#x2F;store&#x2F;myModule&#39;
+
+let myModule: MyModule
+
+function initialiseStores(store: Store&lt;any&gt;): void &#123;
+  myModule &#x3D; getModule(MyModule, store)
+&#125;
+
+export &#123; initialiseStores, myModule &#125;</code></pre>
+
+<p>在组件内使用</p>
+<pre class="language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+    &lt;div&gt;
+        &#123;&#123; count &#125;&#125;
+        &lt;button @click&#x3D;&quot;increment&quot;&gt;加一&lt;&#x2F;button&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script lang&#x3D;&quot;ts&quot;&gt;
+import Vue from &#39;vue&#39;
+import Component from &#39;vue-class-component&#39;;
+import &#123; cart &#125; from &#39;~&#x2F;store&#39;;
+
+@Component
+export default class Test extends Vue &#123;
+
+
+    get count()&#123;
+        return cart.axles
+    &#125;
+
+    increment()&#123;
+        cart.increment()
+    &#125;
+
+&#125;
+&lt;&#x2F;script&gt;
+
+&lt;style scoped&gt;
+&lt;&#x2F;style&gt;
+</code></pre>
+
+
+
+<h2 id="Layouts目录的使用"><a href="#Layouts目录的使用" class="headerlink" title="Layouts目录的使用"></a>Layouts目录的使用</h2><h3 id="基于vue-property-decorator"><a href="#基于vue-property-decorator" class="headerlink" title="基于vue-property-decorator"></a>基于vue-property-decorator</h3><p>~/layouts/UserLayout.vue</p>
+<pre class="language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+    &lt;div&gt;
+        &lt;div&gt;测试头&lt;&#x2F;div&gt;
+        &lt;nuxt&#x2F;&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script lang&#x3D;&quot;ts&quot;&gt;
+import &#123; Component, Vue &#125; from &#39;vue-property-decorator&#39;;
+
+@Component
+export default class UserLayout extends Vue &#123;
+
+&#125;
+&lt;&#x2F;script&gt;
+
+&lt;style scoped&gt;
+&lt;&#x2F;style&gt;</code></pre>
+
+<p>~/page/test.vue_</p>
+<pre class="language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+    &lt;div&gt;&#123;&#123; text &#125;&#125;&lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script lang&#x3D;&quot;ts&quot;&gt;
+import &#123; Component, Vue &#125; from &#39;vue-property-decorator&#39;;
+
+@Component(&#123;
+    layout:&#39;UserLayout&#39;
+&#125;)
+export default class Test extends Vue &#123;
+    private text: string &#x3D; &#39;&#39;
+&#125;
+&lt;&#x2F;script&gt;
+
+&lt;style scoped&gt;
+&lt;&#x2F;style&gt;</code></pre>
+
+
+<h2 id="关于vue-test-utils的使用"><a href="#关于vue-test-utils的使用" class="headerlink" title="关于vue-test-utils的使用"></a>关于vue-test-utils的使用</h2><h3 id="wrapper"><a href="#wrapper" class="headerlink" title="wrapper"></a>wrapper</h3><p>使用测试时的操作都是通过wrapper这个对象来进行断言处理的</p>
+<pre class="language-js" data-language="js"><code class="language-js"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'测试'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> wrapper <span class="token operator">=</span> <span class="token function">mount</span><span class="token punctuation">(</span>Test<span class="token punctuation">)</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'有一个按钮'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'点击时会加一'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> button <span class="token operator">=</span> wrapper<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> num <span class="token operator">=</span> wrapper<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>count
+    <span class="token keyword">await</span> button<span class="token punctuation">.</span><span class="token function">trigger</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">)</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>count<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span>num <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'输入栏能正确使用'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> input<span class="token operator">=</span>wrapper<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">'input'</span><span class="token punctuation">)</span>
+    input<span class="token punctuation">.</span>element<span class="token punctuation">.</span>value<span class="token operator">=</span><span class="token string">'输入值'</span>
+    input<span class="token punctuation">.</span><span class="token function">trigger</span><span class="token punctuation">(</span><span class="token string">'input'</span><span class="token punctuation">)</span>
+    <span class="token function">expect</span><span class="token punctuation">(</span>wrapper<span class="token punctuation">.</span>vm<span class="token punctuation">.</span>meg<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toBe</span><span class="token punctuation">(</span><span class="token string">'输入值'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span></code></pre>
+
+<h3 id="mount"><a href="#mount" class="headerlink" title="mount()"></a>mount()</h3><p>使用该函数会返回一个wrapper对象</p>
+<h2 id="在Nuxt中获取数据"><a href="#在Nuxt中获取数据" class="headerlink" title="在Nuxt中获取数据"></a>在Nuxt中获取数据</h2><p>在一般的vue中将获取到的数据渲染到页面中一般是在mounted这个钩子中使用的</p>
+<p>在nuxt中可以使用fetch和asyncData这两个钩子来获取数据并渲染</p>
+<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch()"></a>fetch()</h3><p>fetch可以在任意组件中使用</p>
+<p>可以用三个选项来控制fetch的行为表现</p>
+<ul>
+<li>fetchOnServer</li>
+<li>fetchKey</li>
+<li>fetchDelay</li>
+</ul>
+<p>用this.$fetchState来获取fetch()钩子的状态,其中该对象有三个属性</p>
+<ul>
+<li>pending</li>
+<li>error</li>
+<li>timestamp</li>
+</ul>
+<h3 id="asyncData"><a href="#asyncData" class="headerlink" title="asyncData()"></a>asyncData()</h3><p>asyncData只能在/page下的组件中使用</p>
+<h2 id="在nuxt中使用nuxt-property-decorator来优化写作"><a href="#在nuxt中使用nuxt-property-decorator来优化写作" class="headerlink" title="在nuxt中使用nuxt-property-decorator来优化写作"></a>在nuxt中使用nuxt-property-decorator来优化写作</h2><p><code>vue-property-decorator</code>版本</p>
+<pre class="language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+    &lt;div&gt;&#123;&#123; posts &#125;&#125;&lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script lang&#x3D;&quot;ts&quot;&gt;
+import &#123; Component, Vue &#125; from &#39;vue-property-decorator&#39;;
+
+@Component(&#123;
+    async fetch() &#123;
+        this.posts &#x3D; await fetch(&#39;https:&#x2F;&#x2F;api.nuxtjs.dev&#x2F;posts&#39;).then(res &#x3D;&gt;
+            res.json()
+        )
+
+    &#125;
+&#125;)
+export default class FetchC extends Vue &#123;
+    posts &#x3D; []
+
+
+&#125;
+&lt;&#x2F;script&gt;
+
+&lt;style scoped&gt;
+&lt;&#x2F;style&gt;</code></pre>
+
+<p><code>nuxt-property-decorator</code>版本</p>
+<pre class="language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+    &lt;div&gt;&#123;&#123; posts &#125;&#125;&lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script lang&#x3D;&quot;ts&quot;&gt;
+import &#123; Component, Vue &#125; from &quot;nuxt-property-decorator&quot;;
+
+@Component(&#123;
+
+&#125;)
+export default class FetchC extends Vue &#123;
+    posts &#x3D; []
+
+    async fetch() &#123;
+        this.posts &#x3D; await fetch(&#39;https:&#x2F;&#x2F;api.nuxtjs.dev&#x2F;posts&#39;).then(res &#x3D;&gt;
+            res.json()
+        )
+    &#125;
+    
+
+&#125;
+&lt;&#x2F;script&gt;
+
+&lt;style scoped&gt;
+&lt;&#x2F;style&gt;</code></pre>
+
+<p>先说区别吧,单从fetch()这个hook来说在</p>
+<p>vue-property-decorator中需要将其放在@Componentz中才能使用</p>
+<p>nuxt-property-decoratort就可以直接在类中写,并且可以提供正常的代码补全不会有红线</p>
+<hr>
+<p>To Be Continued.</p>
+<!-- Q.E.D. --></div><ul class="post-copyright"><li class="post-copyright-author"><strong>本文作者：</strong>覆影</li><li class="post-copyright-link"><strong>本文链接：</strong><a href="https://shadowsouls.github.io/2021/10/24/Nuxt%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" title="Nuxt使用说明">https://shadowsouls.github.io/2021/10/24/Nuxt%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</a></li><li class="post-copyright-license"><strong>版权声明：</strong>本博客所有文章除特别声明外，均默认采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> 许可协议。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2021/10/25/%E5%B0%8F%E4%BD%9C%E6%96%87/" rel="prev" title="小作文"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">小作文</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2021/08/24/unity%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="next" title="unity学习记录"><span class="post-nav-text">unity学习记录</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2021 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> 覆影</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v5.4.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.6.1</span></div></footer><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><script>const date = new Date();
+const today = (date.getMonth() + 1) + "-" + date.getDate()
+const mourn_days = ["4-4"]
+if (mourn_days.includes(today)) {
+  document.documentElement.style.filter = "grayscale(1)";
+}</script></div></body></html>
